@@ -4,33 +4,20 @@
     <style>
        #map {
         height: 80vh;
-        width: 100%;
+        width: 90vw;
+        margin: auto;
        }
     </style>
   </head>
   <body>
     <h3>My Google Maps Demo</h3>
+    <div id="city-buttons"></div>
     <div id="map"></div>
-    <script>
 
-// on click, pass "this" proprties (lat, long, to the 
-      function initMap() {
-        // var newYork = {lat: cities[0].lat, lng: cities[0].lon};
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 5,
-          center: {lat: 39.0286, lng: -96.8314}
-        });
-        for(var i = 0; i < cities.length; i++){
-            var marker = new google.maps.Marker({
-            position: {lat: cities[i].lat, lng: cities[i].lon},
-            map: map
-          });
-        }
-      }
-    </script>
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJzsRO1uAD-miCC61F2dPRix5BMKl4H7M&callback=initMap">
     </script>
     <script type="text/javascript" src="cities.js"></script>
+    <script type="text/javascript" src="cities-scripts.js"></script>
   </body>
 </html>
