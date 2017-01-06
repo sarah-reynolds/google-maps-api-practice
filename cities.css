@@ -1,0 +1,13 @@
+#map {
+	height: 80vh;
+	width: 90vw;
+	margin: auto;
+}
+
+button{
+	margin: 3px;
+}
+
+.margin-bottom{
+	margin-bottom: 5px;
+}

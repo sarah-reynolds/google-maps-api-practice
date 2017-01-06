@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-       #map {
-        height: 80vh;
-        width: 90vw;
-        margin: auto;
-       }
-    </style>
+  <title>Add Markers to Google Map</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="cities.css">
   </head>
   <body>
-    <h3>My Google Maps Demo</h3>
-    <div id="city-buttons"></div>
+  <div class="container-fluid">
+    <div class="row margin-bottom">
+      <div class="col-xs-10 col-xs-offset-1">
+        <h3>My Google Maps Demo</h3>
+        <p>Click a city to add a marker to the map.</p>
+        <div id="city-buttons"></div>
+      </div>
+    </div>
     <div id="map"></div>
+  </div>
 
     <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJzsRO1uAD-miCC61F2dPRix5BMKl4H7M&callback=initMap">
