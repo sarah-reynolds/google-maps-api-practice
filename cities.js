@@ -19,6 +19,7 @@ class City{
   }
 }
 
+
 var cities = [];
 cities.push(new City ("1","New York","New York","8,491,079","8,175,133","+3.86%","302.6 sq mi","783.8 km2","27,012 per sq mi","10,430 km−2","40.6643,-73.9385"));
 cities.push(new City ("2","Los Angeles","California","3,928,864","3,792,621","+3.59%","468.7 sq mi","1,213.9 km2","8,092 per sq mi","3,124 km−2","34.0194,-118.4108"));
@@ -63,31 +64,4 @@ cities.push(new City ("39","Atlanta","Georgia","456,002","420,003","+8.57%","133
 
 
 
-
-
-var buttonHTML = "";
-buildButtons();
-var map; 
-
-function buildButtons(){
-  for(let i = 0; i < cities.length; i++){
-    buttonHTML += '<button class="btn btn-default" id="'+[i]+'" onclick="addMarker('+[i]+')">'+cities[i].city+'</button>';
-  }
-  document.getElementById('city-buttons').innerHTML = buttonHTML;
-}
-
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 4,
-    center: {lat: 39.0286, lng: -96.8314}
-  });
-}
-
-function addMarker(num){
-  console.log(num)
-  var marker = new google.maps.Marker({
-  position: {lat: cities[num].lat, lng: cities[num].lon},
-  map: map
-  });
-}
 
