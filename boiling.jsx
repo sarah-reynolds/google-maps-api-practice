@@ -30,11 +30,11 @@ function BoilingVerdict(props){
 
 	if(props.celcius >= 100){
 		return(
-			<p>The water would boil at {props.celcius}&deg; celcius.</p>
+			<p>The water would boil at {props.celcius}&deg; celsius / {props.fahrenheit}&deg; fahrenheit</p>
 		)
 	}else{
 		return(
-			<p>The water would NOT boil at {props.celcius}&deg; celcius.</p>
+			<p>The water would NOT boil at {props.celcius}&deg; celsius / {props.fahrenheit}&deg; fahrenheit</p>
 		)
 	}
 }
@@ -42,7 +42,10 @@ function BoilingVerdict(props){
 var TemperatureInput = React.createClass({
 
 	handleChange: function(event){
-		this.props.onChange(event.target.value);
+		// this.setState({
+		// 	value: event.target.value
+		// })
+		this.props.onChange(event.target.value)
 	},
 	render: function(){
 		var value = this.props.value;
@@ -66,13 +69,13 @@ var Calculater = React.createClass({
 	handleCelciusChange: function(value){
 		this.setState({
 			scale: 'c',
-			value: value
+			value
 		})
 	},
 	handleFahrenheitChange: function(value){
 		this.setState({
 			scale: 'f',
-			value: value
+			value
 		})
 	},
 	render: function(){
@@ -82,7 +85,7 @@ var Calculater = React.createClass({
 		if(this.state.scale == 'c'){
 			var fTemp = tryConvert(value,'c');
 			var cTemp = value;
-		}else if(this.state.scale == 'f'){
+		} else if(this.state.scale == 'f'){
 			var fTemp = value;
 			var cTemp = tryConvert(value,'f');
 		}
@@ -91,7 +94,7 @@ var Calculater = React.createClass({
 				<div>
 					<TemperatureInput tUnits="Celcius" value={cTemp} onChange={this.handleCelciusChange} />
 					<TemperatureInput tUnits="Fahrenheit" value={fTemp} onChange={this.handleFahrenheitChange} />
-					<BoilingVerdict celcius={Number(cTemp)} />
+					<BoilingVerdict celcius={Number(cTemp)} fahrenheit={Number(fTemp)} />
 				</div>
 		)
 	} 
