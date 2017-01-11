@@ -73,6 +73,9 @@ var GoogleCity = React.createClass({
 	},
 	getDirections: function(){
 		end = this.props.cityObject.city;
+		markers.map(function(marker, index){
+			marker.setMap(null);
+		});
 		calcRoute();
 	},
 	render: function(){
