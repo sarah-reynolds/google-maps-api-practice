@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Google Maps Reborn</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" >
+	<link rel="stylesheet" href="styles.css" >
+
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-xs-12">
+				<h3 class="page-header text-center">Map Markers and Directions</h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-5" id="map"></div>
+			<div class="col-xs-3" id="cities-container">
+				App is loading...
+			</div>
+			<div className="col-xs-4" id="directionsPanel"></div>
+		</div>
+	</div>
+
+	<script src="https://fb.me/react-15.1.0.js"></script>
+	<script src="https://fb.me/react-dom-15.1.0.js"></script>
+	<script src="https://npmcdn.com/react-router@2.5.2/umd/ReactRouter.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.24/browser.min.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCJzsRO1uAD-miCC61F2dPRix5BMKl4H7M&libraries=places"></script>
+	<script type="text/javascript" src="js/cities.js"></script>
+	<script type="text/babel" src="js/index-router.jsx"></script>
+
+</body>
+</html>

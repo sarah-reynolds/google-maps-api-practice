@@ -127,13 +127,13 @@ var GoogleCity = React.createClass({
 var Cities = React.createClass({
 	getInitialState: function(){
 		return{
-			currCities: this.props.cities
+			currCities: this.props.routes[1].cities
 		}	
 	},
 	handleInputChange: function(event){
 		var newFilterValue = event.target.value;
 		var filteredCitiesArray = [];
-		this.props.cities.map(function(currCity, index){
+		this.props.routes[1].cities.map(function(currCity, index){
 			if(currCity.city.toUpperCase().indexOf(newFilterValue.toUpperCase()) !== -1){
 				filteredCitiesArray.push(currCity);
 			}
@@ -202,7 +202,50 @@ var Cities = React.createClass({
 	}
 })
 
+function Test(props){
+	return(
+		<h1>This is the Test route</h1>
+	)
+}
+
+var App = React.createClass({
+	render: function(){
+		return(
+			<div>
+				<BootstrapNavBar />
+				{this.props.children}
+			</div>
+		)
+	}
+})
+
+var BootstrapNavBar = React.createClass({
+	render: function(){
+		return(
+			<nav className="navbar navbar-default">
+				<div className="container-fluid">
+					<div className="navbar-header">
+						<a className="navbar-brand" href="#">WebSiteName</a>
+					</div>
+					<ul className="nav navbar-nav">
+						<li><ReactRouter.IndexLink activeClassName="active" to="/">Home</ReactRouter.IndexLink></li>
+						<li><ReactRouter.Link activeClassName="active" to="cities">Cities</ReactRouter.Link></li>
+					</ul>
+				</div>
+			</nav>
+		)
+	}
+})
+
 ReactDOM.render(
-	<Cities cities={cities} />,
+	<ReactRouter.Router>
+		<ReactRouter.Route path="/" component={App} >
+			<ReactRouter.IndexRoute component={Cities} cities={cities} />
+			<ReactRouter.Route path="/cities" component={Test} />
+		</ReactRouter.Route>
+	</ReactRouter.Router>,
 	document.getElementById('cities-container')
 )
+
+
+
