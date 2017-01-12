@@ -7,27 +7,17 @@ var map = new google.maps.Map(
 	}
 );
 
-
 var infoWindow = new google.maps.InfoWindow({});
 var markers = [];
-
-var directionsDisplay;
+var poiMarkers = [];
+var directionsDisplay = new google.maps.DirectionsRenderer();
 var directionsService = new google.maps.DirectionsService();
-
-function initialize() {
-  directionsDisplay = new google.maps.DirectionsRenderer();
-  var mapOptions = {
-	center: {lat: 39.8282, lng: -98.5795},
-	zoom: 4
-  }
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
-  directionsDisplay.setMap(map);
-  directionsDisplay.setPanel(document.getElementById('directionsPanel'));
-
-}
+directionsDisplay.setMap(map);
+directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
 var start = 'Atlanta, GA';
 var end;
+
 function calcRoute() {
   var request = 
   	{
@@ -41,10 +31,6 @@ function calcRoute() {
     }
   });
 }
-
-initialize();
-
-
 
 function createMarker(city){
 	var icon = 'http://i.imgur.com/RJ969om.png'
@@ -65,10 +51,23 @@ function createMarker(city){
 	markers.push(marker);
 }
 
+function createPoI(place){
+	var infoWindow = new google.maps.InfoWindow({});
+	var marker = new google.maps.Marker({
+		map: map,
+		position: place.geometry.location,
+		icon: place.icon
+	});
+	google.maps.event.addListener(marker, 'click', () =>{
+		infoWindow.setContent(place.name);
+		infoWindow.open(map, marker);
+	});
+	poiMarkers.push(marker)
+}
+
 // ******* REACT ******* //
 var GoogleCity = React.createClass({
 	handleClickedCity: function(event){
-		console.log("someone clicked a city");
 		google.maps.event.trigger(markers[this.props.cityObject.yearRank-1],"click")
 	},
 	getDirections: function(){
@@ -78,12 +77,47 @@ var GoogleCity = React.createClass({
 		});
 		calcRoute();
 	},
+	zoomIn: function(event){
+		var cityLL = new google.maps.LatLng(this.props.cityObject.lat, this.props.cityObject.lon)
+		map = new google.maps.Map(
+			document.getElementById('map'),
+			{
+				zoom: 16,
+				center: cityLL
+			}
+		)
+		directionsDisplay.setMap(map);
+		var service = new google.maps.places.PlacesService(map);
+		service.nearbySearch(
+			{
+				location: cityLL,
+				radius: 500,
+				type: ['store']
+			},
+			function(results, status){
+				if(status === 'OK'){
+					results.map(function(currPlace,index){
+						createPoI(currPlace);
+					})
+				}
+			}
+		);
+		var bounds = new google.maps.LatLngBounds(cityLL);
+		poiMarkers.map(function(currMarker,index){
+			bounds.extend(currMarker.getPosition());
+			runFitBounds();
+		})
+	},
+	runFitBounds: function(){
+		map.fitBounds(bounds);
+	},
 	render: function(){
 		return(
 			<tr>
 				<td className="city-name" onClick={this.handleClickedCity}>{this.props.cityObject.city}</td>
 				<td className="city-rank">{this.props.cityObject.yearRank}</td>
 				<td><button className="btn btn-default btn-sm" onClick={this.getDirections}>Get directions</button></td>
+				<td><button className="btn btn-default btn-sm" onClick={this.zoomIn}>Zoom in</button></td>
 			</tr>
 		)	
 	}
@@ -154,6 +188,7 @@ var Cities = React.createClass({
 							<tr>
 								<th>City Name</th>
 								<th>City Rank</th>
+								<th>&nbsp;</th>
 								<th>&nbsp;</th>
 							</tr>
 						</thead>

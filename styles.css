@@ -33,3 +33,9 @@ body{
 .starting-location{
 	margin: 5px 0 10px 5px;
 }
+
+#directionsPanel{
+	float:left;
+	width:30%;
+	height: ; 100%;
+}
