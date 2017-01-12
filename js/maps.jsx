@@ -123,7 +123,6 @@ var GoogleCity = React.createClass({
 	}
 });
 
-
 var Cities = React.createClass({
 	getInitialState: function(){
 		return{
